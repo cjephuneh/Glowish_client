@@ -36,7 +36,7 @@ const Header = () => {
               {/* <Image className="w-20 object-cover" imgSrc={logo} /> */}
             </div>
           </Link>
-          <div>
+          <div className=" flex items-center justify-center">
             {showMenu && (
               <motion.ul
                 initial={{ y: 30, opacity: 0 }}
