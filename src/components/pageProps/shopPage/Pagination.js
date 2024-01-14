@@ -1,52 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import Product from "../../home/Products/Product";
-import { paginationItems } from "../../../constants";
+import axios from 'axios'; // Import axios for making HTTP requests
 
-const items = paginationItems;
-function Items({ currentItems }) {
+const Items = ({ currentItems }) => {
   return (
     <>
       {currentItems &&
         currentItems.map((item) => (
-          <div key={item._id} className="w-full">
+          <div key={item.id} className="w-full">
             <Product
-              _id={item._id}
-              img={item.img}
-              productName={item.productName}
+              _id={item.id}
+              img={item.image}
+              productName={item.name}
               price={item.price}
-              color={item.color}
-              badge={item.badge}
-              des={item.des}
+              // color={item.color} // Ensure your API returns a color field, or adjust accordingly
+              // badge={item.badge} // Ensure your API returns a badge field, or adjust accordingly
+              des={item.desc}
             />
           </div>
         ))}
     </>
   );
-}
+};
 
 const Pagination = ({ itemsPerPage }) => {
-  // Here we use item offsets; we could also use page offsets
-  // following the API or data you're working with.
+  const [items, setItems] = useState([]); // State to store items from API
   const [itemOffset, setItemOffset] = useState(0);
   const [itemStart, setItemStart] = useState(1);
 
-  // Simulate fetching items from another resources.
-  // (This could be items from props; or items loaded in a local state
-  // from an API endpoint with useEffect and useState)
+  useEffect(() => {
+    // Fetch items from API on component mount
+    axios.get("http://127.0.0.1:8000/api/products")
+      .then(response => {
+        setItems(response.data); // Update state with fetched items
+        console.log('Fetched Items:', response.data); // Add this line to log the response
+
+      })
+      .catch(error => console.error("Error fetching data: ", error));
+  }, []);
+
   const endOffset = itemOffset + itemsPerPage;
-  //   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems = items.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(items.length / itemsPerPage);
 
-  // Invoke when user click to request another page.
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % items.length;
     setItemOffset(newOffset);
-    // console.log(
-    //   `User requested page number ${event.selected}, which is offset ${newOffset},`
-    // );
-    setItemStart(newOffset);
+    setItemStart(newOffset + 1); // Update starting item number for display
   };
 
   return (
@@ -67,10 +68,8 @@ const Pagination = ({ itemsPerPage }) => {
           containerClassName="flex text-base font-semibold font-titleFont py-10"
           activeClassName="bg-black text-white"
         />
-
         <p className="text-base font-normal text-lightText">
-          Products from {itemStart === 0 ? 1 : itemStart} to {endOffset} of{" "}
-          {items.length}
+          Products from {itemStart} to {Math.min(endOffset, items.length)} of {items.length}
         </p>
       </div>
     </div>

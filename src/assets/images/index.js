@@ -1,17 +1,17 @@
 import logo from "./orebiLogo.png";
 import logoLight from "./logoLight.png";
-import bannerImgOne from "./banner/bannerImgOne.webp";
-import bannerImgTwo from "./banner/bannerImgTwo.webp";
-import bannerImgThree from "./banner/bannerImgThree.webp";
+import bannerImgOne from "./slider/slider-1.jpg";
+import bannerImgTwo from "./slider/slider-2.jpg";
+import bannerImgThree from "./slider/slider-3.jpg";
 import saleImgOne from "./sale/saleImgOne.webp";
 import saleImgTwo from "./sale/saleImgTwo.webp";
 import saleImgThree from "./sale/saleImgThree.webp";
 // ============== Products Start here ====================
 // New Arrivals
-import newArrOne from "./products/newArrival/newArrOne.webp";
-import newArrTwo from "./products/newArrival/newArrTwo.webp";
-import newArrThree from "./products/newArrival/newArrThree.webp";
-import newArrFour from "./products/newArrival/newArrFour.webp";
+import newArrOne from "./photo1705089828.jpeg";
+import newArrTwo from "./photo1705089828 (1).jpeg";
+import newArrThree from "./photo1705089828 (2).jpeg";
+import newArrFour from "./photo1705089828 (5).jpeg";
 
 // Best Sellers
 import bestSellerOne from "./products/bestSeller/bestSellerOne.webp";
@@ -46,6 +46,8 @@ export {
   newArrTwo,
   newArrThree,
   newArrFour,
+
+
 
   // Best Sellers
   bestSellerOne,

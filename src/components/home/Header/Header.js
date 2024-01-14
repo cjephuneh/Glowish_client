@@ -32,7 +32,8 @@ const Header = () => {
         <Flex className="flex items-center justify-between h-full">
           <Link to="/">
             <div>
-              <Image className="w-20 object-cover" imgSrc={logo} />
+              <h1 className=" text-4xl font-bold" >Glowish</h1>
+              {/* <Image className="w-20 object-cover" imgSrc={logo} /> */}
             </div>
           </Link>
           <div>
