@@ -1,54 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios'; // Import axios for making HTTP requests
 import Heading from "../Products/Heading";
 import Product from "../Products/Product";
-import {
-  bestSellerOne,
-  bestSellerTwo,
-  bestSellerThree,
-  bestSellerFour,
-} from "../../../assets/images/index";
 
 const BestSellers = () => {
+  const [products, setProducts] = useState([]); // State to store the fetched products
+
+  useEffect(() => {
+    // Function to fetch products
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/bestsellers/Bestsellers/");
+        setProducts(response.data); // Update the state with the fetched products
+      } catch (error) {
+        console.error("Error fetching bestseller products: ", error);
+      }
+    };
+
+    fetchProducts(); // Call the function to fetch products
+  }, []); // Empty dependency array to run only once on component mount
+
   return (
     <div className="w-full pb-20">
       <Heading heading="Our Bestsellers" />
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lgl:grid-cols-3 xl:grid-cols-4 gap-10">
-        <Product
-          _id="1011"
-          img={bestSellerOne}
-          productName="Flower Base"
-          price="35.00"
-          color="Blank and White"
-          badge={true}
-          des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
-        />
-        <Product
-          _id="1012"
-          img={bestSellerTwo}
-          productName="New Backpack"
-          price="180.00"
-          color="Gray"
-          badge={false}
-          des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
-        />
-        <Product
-          _id="1013"
-          img={bestSellerThree}
-          productName="Household materials"
-          price="25.00"
-          color="Mixed"
-          badge={true}
-          des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
-        />
-        <Product
-          _id="1014"
-          img={bestSellerFour}
-          productName="Travel Bag"
-          price="220.00"
-          color="Black"
-          badge={false}
-          des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
-        />
+        {products.map((product) => (
+          <Product
+            key={product.id}
+            _id={product.id}
+            img={product.image}
+            productName={product.title}
+            price={product.price}
+            // color and badge are not provided by API, so they are commented out
+            // color={product.color}
+            // badge={product.badge}
+            des={product.description}
+          />
+        ))}
       </div>
     </div>
   );
