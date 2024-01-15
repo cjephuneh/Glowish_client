@@ -23,9 +23,6 @@ const ProductBanner = ({ itemsPerPageFromBanner }) => {
 
   return (
     <div className="w-full flex flex-col md:flex-row md:items-center justify-between">
-      {/* =========================================================
-                            Left Part Start here
-        ======================================================== */}
 
       <div className="flex items-center gap-4">
         <span
